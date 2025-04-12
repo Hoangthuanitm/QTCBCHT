@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy trình Check & Gửi BCHT</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a56db;
+            --secondary-color: #2563eb;
+            --accent-color: #dbeafe;
+            --text-color: #1f2937;
+            --light-bg: #f3f4f6;
+            --header-bg: #1e40af;
+            --border-color: #e5e7eb;
+            --hover-color: #eff6ff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-header i {
+            margin-right: 10px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+        
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        
+        td.centered {
+            text-align: center;
+        }
+        
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        th:first-child {
+            border-top-left-radius: 6px;
+        }
+        
+        th:last-child {
+            border-top-right-radius: 6px;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        tbody tr:hover {
+            background-color: var(--hover-color);
+        }
+        
+        td ul {
+            margin-left: 20px;
+        }
+        
+        .highlight {
+            background-color: var(--accent-color);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .note {
+            display: flex;
+            align-items: flex-start;
+            background-color: #fff8e6;
+            border-left: 4px solid #f59e0b;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note i {
+            margin-right: 10px;
+            color: #f59e0b;
+        }
+        
+        footer {
+            background-color: var(--header-bg);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .content-item {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .bullet {
+            flex-shrink: 0;
+            margin-right: 5px;
+        }
+        
+        .content-text {
+            flex-grow: 1;
+        }
+        
+        .underline {
+            text-decoration: underline;
+        }
+        
+        td[rowspan] {
+            vertical-align: middle;
+            text-align: center;
+            font-weight: 500;
+            background-color: #f0f9ff;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>QUY TRÌNH CHECK & GỬI BCHT</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Quy trình chính -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-tasks"></i>
+                    QUY TRÌNH CHECK & GỬI BCHT
+                </div>
+                <div class="card-body">
+                    <div class="note">
+                        <i class="fas fa-info-circle"></i>
+                        <div>Vui lòng tuân thủ thời hạn để đảm bảo quy trình được tiến hành suôn sẻ.</div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="5%">STT</th>
+                                <th width="45%">Nội dung</th>
+                                <th width="25%">Thời hạn</th>
+                                <th width="25%">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="centered">1</td>
+                                <td>GVCN cập nhật bodymail BCHT trên google drive</td>
+                                <td><span class="highlight">Trước 15:00 ngày 25</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Link googledrive</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="centered">2</td>
+                                <td>TGV gửi báo cáo cho GV Nhật, báo Skype cho GV & GV Nhật</td>
+                                <td><span class="highlight">Trước 15:00 ngày 28</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="centered">3</td>
+                                <td>GV Nhật kiểm tra (có 0.5 ngày trống tiết ngày 29)</td>
+                                <td><span class="highlight">15:00 ngày 28 – 13:00 ngày 29</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="centered">4</td>
+                                <td>GVCN gửi báo cáo tổng hợp (đơn ghép 3 miền) cho Madoguchi nội bộ</td>
+                                <td><span class="highlight">Trước 17:00 ngày 29</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="centered">5</td>
+                                <td>GVCN gửi báo cáo cho Madoguchi. Đơn liên quân ghép gửi trước 13:00 ngày 1. BCHT từ miền khác gửi trước 13:00 ngày 2</td>
+                                <td><span class="highlight">Trước 15:00 ngày 3</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="centered">6</td>
+                                <td>Madoguchi gửi báo cáo cho khách (nếu trùng T7, CN thì gửi vào ngày làm việc kế tiếp)</td>
+                                <td><span class="highlight">Trước 15:00 ngày 5 hoặc 8</span></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Các chú ý khi gửi bodymail -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-envelope"></i>
+                    CÁC CHÚ Ý KHI GỬI BODYMAIL BC GIỮA GV VÀ TGV VÀ GV NHẬT
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="5%">STT</th>
+                                <th width="45%">Nội dung</th>
+                                <th width="25%">Thời hạn</th>
+                                <th width="25%">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="centered">1</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV cập nhật nội dung bodymail và upload lên google drive</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text underline">Link: https://drive.google.com/drive/folders/1QWC4kl7IfTW66_</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 15:00 ngày 25</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Ghi tiêu đề file bằng KATAKANA</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Báo Trưởng Giáo Viên nắm tt</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 25 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="centered">2</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Trưởng giáo viên kiểm tra nội dung và báo cho GV Nhật</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 15:00 ngày 28</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Báo cho các GV và GV Nhật nắm tt</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 28 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="centered">3</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV Nhật kiểm tra nội dung bodymail</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 29</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Báo cho Trưởng Giáo Viên</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">TGV báo GV nắm thông tin</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 29 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Các chú ý khi gửi BC giữa GV và Madoguchi -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-exchange-alt"></i>
+                    CÁC CHÚ Ý KHI GỬI BC GIỮA GV VÀ MADOGUCHI NỘI BỘ & CÁC MIỀN
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="15%">Trường hợp</th>
+                                <th width="35%">Nội dung</th>
+                                <th width="25%">Thời hạn</th>
+                                <th width="25%">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3">Liên quân 3 miền</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là miền 1</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV gửi báo cáo nội bộ cho Madoguchi</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 17:00 ngày 29</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 29 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là miền 1</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Madoguchi miền 1 gửi BCHT cho Madoguchi miền 2 (trung gian)</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 1</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 1 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là miền 2 (Trung gian)</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV HCM nhận báo cáo từ miền 1 cập nhật và gửi Madoguchi HCM</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 2</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 2 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">Liên quân 2 miền</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là miền 1</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV gửi báo cáo nội bộ cho Madoguchi</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 1</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 1 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là miền 1</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Madoguchi miền 1 gửi BCHT cho Madoguchi host</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 3</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 3 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là host</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV HCM nhận báo cáo từ miền 1 cập nhật và gửi Madoguchi HCM</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 13:00 ngày 4</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 4 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="content-text"><strong>Trường hợp HCM là host</strong></span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Madoguchi gửi khách</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 15:00 ngày 5 hoặc 8</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 4 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Không liên quân</td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">GV gửi báo cáo nội bộ cho Madoguchi</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 15:00 ngày 3</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 4 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Madoguchi gửi khách</span>
+                                    </div>
+                                </td>
+                                <td><span class="highlight">Trước 15:00 ngày 5 hoặc 8</span></td>
+                                <td>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Khi có phát sinh trễ thì cần báo cho Madoguchi</span>
+                                    </div>
+                                    <div class="content-item">
+                                        <span class="bullet">・</span>
+                                        <span class="content-text">Gửi trước 1 ngày nếu ngày 5,8 là T7 hoặc CN</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Tài liệu hướng dẫn quy trình | Thiết kế bởi Thuận</p>
+                <div class="social-links">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
